@@ -31,15 +31,15 @@ namespace GL_EditorFramework.EditorDrawables
         public float CubeScale => 0.5f;
         public float ControlCubeScale => 0.25f;
 
-        private static bool Initialized = false;
-        private static ShaderProgram triangleShaderProgram;
-        private static ShaderProgram lineShaderProgram;
-        private static int colorLoc_Line, gapIndexLoc_Line, isPickingModeLoc_Line, 
+        protected static bool Initialized = false;
+        protected static ShaderProgram triangleShaderProgram;
+        protected static ShaderProgram lineShaderProgram;
+        protected static int colorLoc_Line, gapIndexLoc_Line, isPickingModeLoc_Line, 
             isPickingModeLoc_Tri, colorLoc_Tri;
 
-        private static int drawLists;
-        private static VertexArrayObject pathPointVao;
-        private static int pathPointBuffer;
+        protected static int drawLists;
+        protected static VertexArrayObject pathPointVao;
+        protected static int pathPointBuffer;
 
         protected List<T> pathPoints;
 
@@ -1310,6 +1310,10 @@ namespace GL_EditorFramework.EditorDrawables
                         point.ControlPoint2 = control.Vector3Input(point.ControlPoint2, "Control Point 2", 1, 16);
                     else
                         point.ControlPoint2 = control.Vector3Input(point.ControlPoint2, "Control Point 2", 0.125f, 2);
+                    if (WinInput.Keyboard.IsKeyDown(WinInput.Key.LeftShift))
+                        point.Rotation = control.Vector3Input(point.Rotation, "Rotation", 1, 16);
+                    else
+                        point.Rotation = control.Vector3Input(point.Rotation, "Rotation", 0.125f, 2);
                 }
             }
 

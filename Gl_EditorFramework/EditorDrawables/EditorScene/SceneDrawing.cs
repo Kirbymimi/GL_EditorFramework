@@ -25,7 +25,10 @@ namespace GL_EditorFramework.EditorDrawables
             foreach (AbstractGlDrawable obj in StaticObjects)
             {
                 if (obj.Visible)
+                {
+                    control.LimitPickingColors(obj.GetPickableSpan());
                     obj.Draw(control, pass);
+                }
             }
 
             if (pass == Pass.OPAQUE)

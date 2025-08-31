@@ -37,13 +37,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fasterflect, Version=3.0.0.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
-      <HintPath>..\packages\fasterflect.3.0.0\lib\netstandard20\netstandard20\Fasterflect.dll</HintPath>
+      <HintPath>..\..\Spotlight\packages\fasterflect.3.0.0\lib\netstandard20\netstandard20\Fasterflect.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenTK.3.1.0\lib\net20\OpenTK.dll</HintPath>
+      <HintPath>..\..\Spotlight\packages\OpenTK.3.1.0\lib\net20\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK.GLControl, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenTK.GLControl.3.1.0\lib\net20\OpenTK.GLControl.dll</HintPath>
+      <HintPath>..\..\Spotlight\packages\OpenTK.GLControl.3.1.0\lib\net20\OpenTK.GLControl.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract Classes\AbstractDrawableCollection.cs" />
+    <Compile Include="ColorKit.cs" />
     <Compile Include="DocumentTabControl.cs" />
     <Compile Include="EditorDrawables\EditorScene\CategorizedScene.cs" />
     <Compile Include="EditorDrawables\DrawableCollection.cs" />
@@ -123,6 +124,7 @@
   <ItemGroup>
     <Content Include="GL_Core\Resources\TextureSheet.png" />
     <Content Include="Resources\ResolveMultiVector3Icon.png" />
+    <None Include="OpenTK.dll.config" />
     <None Include="Resources\ResolveMultiVector3IconHover.png" />
     <None Include="Resources\ResolveMultiVector3IconClick.png" />
     <None Include="Resources\PasteIconClick.png" />
@@ -158,7 +160,6 @@
     <None Include="Shaders\TriangleShader.geom">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

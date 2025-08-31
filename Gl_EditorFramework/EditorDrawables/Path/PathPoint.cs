@@ -19,11 +19,13 @@ namespace GL_EditorFramework.EditorDrawables
             ControlPoint2 = Vector3.Zero;
         }
 
-        public PathPoint(Vector3 position, Vector3 controlPoint1, Vector3 controlPoint2)
+        public PathPoint(Vector3 position, Vector3 controlPoint1, Vector3 controlPoint2, Vector3 rotation)
             : base(position)
         {
             ControlPoint1 = controlPoint1;
             ControlPoint2 = controlPoint2;
+            this.Rotation = rotation;
+
         }
 
 
@@ -68,6 +70,8 @@ namespace GL_EditorFramework.EditorDrawables
         public Vector3 ControlPoint2 { get; set; }
 
         public virtual Vector3 GlobalCP2 { get => ControlPoint2; set => ControlPoint2 = value; }
+
+        public Vector3 Rotation { get; set; }
 
         public override void StartDragging(DragActionType actionType, int hoveredPart, EditorSceneBase scene)
         {
@@ -205,6 +209,11 @@ namespace GL_EditorFramework.EditorDrawables
             prevPos = null;
             prevRot = null;
             prevScale = null;
+            if (rot.HasValue)
+            {
+                prevRot = Rotation;
+                Rotation = rot.Value;
+            }
 
             if (!pos.HasValue)
                 return;
@@ -273,11 +282,13 @@ namespace GL_EditorFramework.EditorDrawables
 
                 {
                     var newPos = transformAction.NewPos(GlobalPos, out bool posHasChanged);
+                    var newRot = transformAction.NewRot(Rotation, out bool hasRotChanged);
 
-                    if (posHasChanged)
+                    if (posHasChanged || hasRotChanged)
                     {
+                        transformChangeInfos.Add(this, 0, pp, Rotation, null);
                         GlobalPos = newPos;
-                        transformChangeInfos.Add(this, 0, pp, null, null);
+                        Rotation = newRot;
                     }
                 }
             }

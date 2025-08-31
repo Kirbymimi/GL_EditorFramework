@@ -56,14 +56,6 @@ void main(){
         fragColor = color[0];
     else
         fragColor = pathColor*.125+color[0]*.125;
-
-    pos = gl_in[0].gl_Position;
-    faceInv(0,1,2,3);
-    face(4,5,6,7);
-    face(0,1,4,5);
-    faceInv(2,3,6,7);
-    faceInv(0,2,4,6);
-    face(1,3,5,7);
     cubeInstanceScale = controlCubeScale;
 
     if(cp1[0]-gl_in[0].gl_Position.xyz!=vec3(0,0,0)){

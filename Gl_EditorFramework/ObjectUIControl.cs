@@ -581,7 +581,7 @@ namespace GL_EditorFramework
 
                 if (!string.IsNullOrEmpty(text) && text.Length < 100) //Larger strings will be ignored for performance sake
                 {
-                    var values = text.Split(',');
+                    var values = text.Split(';');
 
                     clipboardNumbers = new float[values.Length];
 
@@ -705,10 +705,10 @@ namespace GL_EditorFramework
 
 
         public Vector3 Vector3Input(Vector3 vec, string name,
-            float increment = 1, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false)
+            float increment = 1, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false, float scale = 1)
             => 
         Vector3Input((MultipleVector3)vec, name,
-            increment, incrementDragDivider, min, max, wrapAround).SharedVector;
+            increment, incrementDragDivider, min, max, wrapAround, scale: scale).SharedVector;
 
 
         public Vector3 FullWidthVector3Input(Vector3 vec, string name,
@@ -803,7 +803,7 @@ namespace GL_EditorFramework
         }
 
         public MultipleVector3 Vector3Input(MultipleVector3 vec, string name,
-            float increment = 1, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false, Vector3 multiResolveValue = new Vector3(), bool allowMixed = true)
+            float increment = 1, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false, Vector3 multiResolveValue = new Vector3(), bool allowMixed = true, float scale = 1)
         {
             void ResolveVec()
             {
@@ -849,9 +849,9 @@ namespace GL_EditorFramework
             }
             else
             {
-                vec.X = MultipleNumericInputField(usableWidth - margin - fieldWidth * 4 - fieldSpace * 3, currentY, fieldWidth, vec.X, input, true, multiResolveValue.X);
-                vec.Y = MultipleNumericInputField(usableWidth - margin - fieldWidth * 3 - fieldSpace * 2, currentY, fieldWidth, vec.Y, input, true, multiResolveValue.Y);
-                vec.Z = MultipleNumericInputField(usableWidth - margin - fieldWidth * 2 - fieldSpace * 1, currentY, fieldWidth, vec.Z, input, true, multiResolveValue.Z);
+                vec.X = MultipleNumericInputField(usableWidth - margin - fieldWidth * 4 - fieldSpace * 3, currentY, fieldWidth, vec.X, input, true, multiResolveValue.X).SharedValue;
+                vec.Y = MultipleNumericInputField(usableWidth - margin - fieldWidth * 3 - fieldSpace * 2, currentY, fieldWidth, vec.Y, input, true, multiResolveValue.Y).SharedValue;
+                vec.Z = MultipleNumericInputField(usableWidth - margin - fieldWidth * 2 - fieldSpace * 1, currentY, fieldWidth, vec.Z, input, true, multiResolveValue.Z).SharedValue;
             }
 
             int copyBtnX = usableWidth - margin - fieldWidth;
@@ -862,7 +862,7 @@ namespace GL_EditorFramework
             {
                 //Copy Button
                 if (ImageButton(copyBtnX, currentY, Properties.Resources.CopyIcon, Properties.Resources.CopyIconClick, Properties.Resources.CopyIconHover))
-                    Clipboard.SetText($"{vec.X.SharedValue},{vec.Y.SharedValue},{vec.Z.SharedValue}");
+                    Clipboard.SetText($"{vec.X.SharedValue};{vec.Y.SharedValue};{vec.Z.SharedValue}");
             }
             else
             {
@@ -1053,7 +1053,7 @@ namespace GL_EditorFramework
         {
             EndHorizontalSeperator(); //this control doesn't get aligned to it
 
-            g.DrawString(text, HeadingFont, SystemBrushes.ControlText, margin, currentY);
+            g.DrawString(text, HeadingFont, new SolidBrush(ForeColor), margin, currentY);
             currentY += rowHeight;
 
             BeginHorizontalSeperator(); //this control doesn't get aligned to it
@@ -1242,7 +1242,7 @@ namespace GL_EditorFramework
     float increment = 1f, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false);
 
         MultipleVector3 Vector3Input(MultipleVector3 vec, string name,
-            float increment = 1f, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false, Vector3 multiResolveValue = new Vector3(), bool allowMixed = true);
+            float increment = 1f, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false, Vector3 multiResolveValue = new Vector3(), bool allowMixed = true, float scale = 1);
 
         MultipleVector3 FullWidthVector3Input(MultipleVector3 vec, string name,
             float increment = 1f, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false, Vector3 multiResolveValue = new Vector3());
@@ -1274,7 +1274,7 @@ namespace GL_EditorFramework
     float increment = 1f, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false);
 
         Vector3 Vector3Input(Vector3 vec, string name,
-            float increment = 1f, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false);
+            float increment = 1f, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false, float scale = 1);
 
         Vector3 FullWidthVector3Input(Vector3 vec, string name,
             float increment = 1f, int incrementDragDivider = 8, float min = float.MinValue, float max = float.MaxValue, bool wrapAround = false);

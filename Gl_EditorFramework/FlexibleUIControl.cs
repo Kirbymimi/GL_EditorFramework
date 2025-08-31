@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using System.Collections;
 using System.Collections.Specialized;
 using Fasterflect;
+using Spotlight.GUI;
 
 namespace GL_EditorFramework
 {
@@ -476,10 +477,10 @@ namespace GL_EditorFramework
                 textBoxHeight));
 
             if (isCentered)
-                g.DrawString(value, Font, textColor ?? SystemBrushes.ControlText,
+                g.DrawString(value, Font, textColor ?? ColorKit.Kit.ForeBrush1,
                 x + 1 + (width - (int)Math.Ceiling(g.MeasureString(value, Font).Width)) / 2, y + 1);
             else
-                g.DrawString(value, Font, textColor ?? SystemBrushes.ControlText,
+                g.DrawString(value, Font, textColor ?? ColorKit.Kit.ForeBrush1,
                 x + 1, y + 1);
 
             g.ResetClip();
@@ -724,10 +725,10 @@ namespace GL_EditorFramework
                     textBoxHeight));
 
                 if (isCentered)
-                    g.DrawString(text, Font, SystemBrushes.ControlText,
+                    g.DrawString(text, Font, ColorKit.Kit.ForeBrush1,
                     x + (width - (int)Math.Ceiling(g.MeasureString(text, Font).Width)) / 2, y);
                 else
-                    g.DrawString(text, Font, SystemBrushes.ControlText,
+                    g.DrawString(text, Font, ColorKit.Kit.ForeBrush1,
                     x + 1, y + 1);
 
                 g.ResetClip();
@@ -883,7 +884,7 @@ namespace GL_EditorFramework
 
         protected virtual void DrawText(int x, int y, string text)
         {
-            g.DrawString(text, Font, SystemBrushes.ControlText, x, y);
+            g.DrawString(text, Font, new SolidBrush(ForeColor), x, y);
         }
 
         protected virtual void DrawLink(int x, int y, string text, InteractionType linkInteraction)

@@ -7,7 +7,7 @@ in vec4 color_cp1[];
 in vec4 color_cp2[];
 in vec3 cp1[];
 in vec3 cp2[];
-in int gl_PrimitiveIDIn[];
+in int suce[];
 out vec4 fragColor;
 
 uniform mat4 mtxMdl;
@@ -76,15 +76,6 @@ void main(){
     if(!isPickingMode){
         //draw Point 
         //outline
-        fragColor = color[0];
-        pos = vec4(point,1);
-        face(0,1,2,3);
-        face(4,5,6,7);
-        line(0,4);
-        line(1,5);
-        line(2,6);
-        line(3,7);
-
         cubeInstanceScale = controlCubeScale;
         if(point!=cp1[0]){
             //draw ControlPoint 1
@@ -132,7 +123,7 @@ void main(){
     }
                     
     //connection line (Point to Point)
-    if(gl_PrimitiveIDIn[0]!=gapIndex){
+    if(suce[0]!=gapIndex){
         if(p1!=p0||p2!=p3){
             if(isPickingMode){
                 fragColor = pathColor;
